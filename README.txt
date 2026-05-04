@@ -1,1 +1,1 @@
-PANDUAN:\n1. Unggah ketiga file (index, questions, scoring) ke GitHub.\n2. Hubungkan repositori GitHub ke Vercel.\n3. Gunakan link yang diberikan Vercel untuk pengerjaan.
+PANDUAN:\n1. Unggah keempat file ke satu repositori GitHub.\n2. Hubungkan repositori GitHub ke Vercel.\n3. Gunakan link Vercel untuk pengerjaan.\nAplikasi ini otomatis menghitung Raw Score, konversi ke Base Rate (BR), dan memberikan interpretasi sesuai panduan.

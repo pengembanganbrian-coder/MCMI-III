@@ -3,85 +3,117 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistem Asesmen Psikologi MCMI-III</title>
+    <title>Sistem Asesmen Psikologi MCMI-III Digital</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
         .question-card:nth-child(even) { background-color: #f8fafc; }
+        .sticky-btn { position: sticky; bottom: 20px; z-index: 50; }
     </style>
 </head>
-<body class="bg-slate-50 min-h-screen p-4 md:p-8">
-    <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
-        <header class="bg-blue-900 text-white p-8 text-center border-b-8 border-blue-800">
-            <h1 class="text-3xl font-extrabold tracking-tight">MCMI-III Assessment System</h1>
-            <p class="text-blue-200 mt-2 font-medium">Pengembangan Kepegawaian - Sekretariat DJBC</p>
+<body class="bg-slate-50 min-h-screen">
+    <div class="max-w-4xl mx-auto py-12 px-6">
+        <header class="bg-blue-900 text-white rounded-t-3xl p-10 shadow-2xl text-center">
+            <h1 class="text-4xl font-black tracking-tight mb-2">MCMI-III Assessment Portal</h1>
+            <p class="text-blue-200 font-medium">Bagian Pengembangan Kepegawaian - Sekretariat DJBC</p>
         </header>
 
-        <main class="p-8">
-            <!-- Setup Section -->
+        <main class="bg-white rounded-b-3xl shadow-xl p-8 md:p-12">
+            <!-- Identity Setup -->
             <section id="setup-section" class="max-w-md mx-auto space-y-8 py-10">
-                <div class="text-center space-y-2">
+                <div class="text-center space-y-3">
                     <h2 class="text-2xl font-bold text-slate-800">Identitas Pegawai</h2>
-                    <p class="text-slate-500 text-sm">Harap masukkan data diri Anda sebelum memulai tes.</p>
+                    <p class="text-sm text-slate-500">Mohon masukkan data diri Anda secara benar sebelum memulai pengerjaan tes.</p>
                 </div>
-                <div class="space-y-4">
+                <div class="space-y-5">
                     <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Nama Lengkap</label>
-                        <input type="text" id="nama" placeholder="Contoh: Rahma Oktavia" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Masukkan Nama Lengkap" class="w-full border-2 border-slate-100 p-4 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-700">
                     </div>
                     <div>
-                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">NIP</label>
-                        <input type="text" id="nip" placeholder="Contoh: 19900101XXXXXXXX" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-2">NIP</label>
+                        <input type="text" id="nip" placeholder="Masukkan NIP" class="w-full border-2 border-slate-100 p-4 rounded-2xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all text-slate-700">
                     </div>
                 </div>
-                <button onclick="startTest()" class="w-full bg-blue-700 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-800 active:scale-[0.98] transition-all shadow-lg shadow-blue-700/30">Mulai Tes Sekarang</button>
+                <button onclick="startTest()" class="w-full bg-blue-700 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-800 transform active:scale-95 transition shadow-xl shadow-blue-700/30">Mulai Pengerjaan</button>
             </section>
 
-            <!-- Test Section -->
+            <!-- Test Area -->
             <section id="test-section" class="hidden">
-                <div class="bg-amber-50 border-l-4 border-amber-400 p-5 mb-8 rounded-r-xl">
-                    <p class="text-amber-900 text-sm leading-relaxed">
-                        <strong>Petunjuk:</strong> Bacalah pernyataan di bawah ini dengan teliti. Klik <strong>(+)</strong> jika pernyataan sesuai dengan diri Anda, atau <strong>(-)</strong> jika tidak sesuai.
+                <div class="bg-amber-50 border-l-8 border-amber-400 p-6 mb-10 rounded-r-2xl shadow-sm">
+                    <h4 class="font-bold text-amber-900 mb-1">Petunjuk Pengisian:</h4>
+                    <p class="text-amber-800 text-sm leading-relaxed">
+                        Bacalah setiap pernyataan dengan seksama. Klik tombol <strong>(+)</strong> jika pernyataan Sesuai dengan diri Anda, atau klik <strong>(-)</strong> jika Tidak Sesuai. Pastikan tidak ada nomor yang terlewat.
                     </p>
                 </div>
-                <div id="question-list" class="divide-y divide-slate-100"></div>
-                <div class="mt-12 sticky bottom-8 bg-white/80 backdrop-blur p-4 rounded-2xl shadow-2xl border border-slate-100">
-                    <button onclick="finishTest()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-xl hover:bg-emerald-700 active:scale-[0.98] transition-all shadow-xl shadow-emerald-600/20">Kirim & Proses Hasil</button>
+                <div id="question-list" class="space-y-1"></div>
+                <div class="mt-16 sticky-btn">
+                    <button onclick="finishTest()" class="w-full bg-emerald-600 text-white py-5 rounded-2xl font-black text-xl hover:bg-emerald-700 shadow-2xl shadow-emerald-600/30 transform active:scale-95 transition">Selesai & Lihat Laporan Profil</button>
                 </div>
             </section>
 
-            <!-- Result Section -->
-            <section id="result-section" class="hidden space-y-10 py-6">
-                <div class="text-center space-y-2">
-                    <div class="inline-block p-2 bg-emerald-100 text-emerald-700 rounded-full mb-4">
-                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <!-- Final Report -->
+            <section id="result-section" class="hidden space-y-12 py-6">
+                <div class="text-center space-y-3">
+                    <div class="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full mb-2">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                     </div>
-                    <h2 class="text-3xl font-black text-slate-800">Hasil Kalkulasi Skor Mentah</h2>
-                    <p id="user-display" class="text-slate-500 font-medium"></p>
+                    <h2 class="text-3xl font-black text-slate-800">Laporan Profil Psikologis</h2>
+                    <p id="user-display" class="text-slate-500 font-bold bg-slate-100 inline-block px-4 py-1 rounded-full"></p>
+                </div>
+                
+                <div id="validity-box" class="p-6 rounded-3xl text-center font-black text-xl border-4"></div>
+
+                <div class="overflow-hidden rounded-3xl border border-slate-200 shadow-lg">
+                    <table class="w-full text-left">
+                        <thead class="bg-slate-50 border-b border-slate-200">
+                            <tr>
+                                <th class="p-6 font-black text-slate-700 text-sm uppercase tracking-wider">Skala Kepribadian Klinis</th>
+                                <th class="p-6 text-center font-black text-slate-700 text-sm uppercase tracking-wider">Raw Score</th>
+                                <th class="p-6 text-center font-black text-blue-800 text-sm uppercase tracking-wider">Base Rate (BR)</th>
+                                <th class="p-6 font-black text-slate-700 text-sm uppercase tracking-wider">Interpretasi</th>
+                            </tr>
+                        </thead>
+                        <tbody id="result-table" class="divide-y divide-slate-100"></tbody>
+                    </table>
                 </div>
 
-                <div id="validity-alert" class="p-4 rounded-2xl text-center font-bold text-lg shadow-sm"></div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="result-grid">
-                    <!-- Results populated here -->
+                <div class="bg-slate-50 p-8 rounded-3xl border-2 border-slate-200 space-y-4">
+                    <h3 class="font-black text-slate-800 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-blue-600" fill="currentColor" viewBox="0 0 20 20"><path d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"></path></svg>
+                        Pedoman Interpretasi Skor BR:
+                    </h3>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="bg-white p-4 rounded-2xl border border-slate-200 shadow-sm">
+                            <span class="block font-black text-slate-400 text-xs uppercase mb-1">Normal</span>
+                            <span class="text-lg font-bold text-slate-700">BR 0 - 74</span>
+                            <p class="text-xs text-slate-500 mt-2">Tidak menunjukkan ciri klinis yang signifikan.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-amber-200 shadow-sm">
+                            <span class="block font-black text-amber-400 text-xs uppercase mb-1">Ciri/Sifat</span>
+                            <span class="text-lg font-bold text-amber-600">BR 75 - 84</span>
+                            <p class="text-xs text-slate-500 mt-2">Menunjukkan adanya ciri atau sifat kepribadian klinis.</p>
+                        </div>
+                        <div class="bg-white p-4 rounded-2xl border border-red-200 shadow-sm">
+                            <span class="block font-black text-red-400 text-xs uppercase mb-1">Gangguan</span>
+                            <span class="text-lg font-bold text-red-600">BR 85+</span>
+                            <p class="text-xs text-slate-500 mt-2">Indikasi kuat adanya gangguan kepribadian klinis.</p>
+                        </div>
+                    </div>
                 </div>
 
-                <div class="bg-slate-100 p-6 rounded-2xl border-2 border-dashed border-slate-300">
-                    <h3 class="font-bold text-slate-800 mb-2">Catatan Psikometri:</h3>
-                    <ul class="text-sm text-slate-600 list-disc ml-5 space-y-1">
-                        <li>Hasil ini menampilkan <strong>Skor Mentah (Raw Scores)</strong>.</li>
-                        <li>Interpretasi klinis harus didasarkan pada skor <strong>Base Rate (BR)</strong>.</li>
-                        <li>Konsultasikan dengan Psikolog untuk analisis mendalam.</li>
-                    </ul>
-                </div>
-
-                <div class="text-center">
-                    <button onclick="location.reload()" class="text-blue-600 font-bold hover:underline py-2">Ulangi Tes</button>
+                <div class="text-center pt-4">
+                    <button onclick="location.reload()" class="bg-slate-200 text-slate-700 px-8 py-3 rounded-xl font-bold hover:bg-slate-300 transition">Kembali ke Beranda</button>
                 </div>
             </section>
         </main>
+        
+        <footer class="mt-12 text-center text-slate-400 text-xs font-medium uppercase tracking-widest">
+            © 2026 Sekretariat DJBC | Personnel Development Unit
+        </footer>
     </div>
 
     <script src="questions.js"></script>
+    <script src="br_transform.js"></script>
     <script src="scoring.js"></script>
 </body>
 </html>
