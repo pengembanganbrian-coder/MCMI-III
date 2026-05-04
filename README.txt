@@ -1,0 +1,1 @@
+PANDUAN:\n1. Unggah ketiga file (index, questions, scoring) ke GitHub.\n2. Hubungkan repositori GitHub ke Vercel.\n3. Gunakan link yang diberikan Vercel untuk pengerjaan.

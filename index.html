@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Asesmen Psikologi MCMI-III</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .question-card:nth-child(even) { background-color: #f8fafc; }
+    </style>
+</head>
+<body class="bg-slate-50 min-h-screen p-4 md:p-8">
+    <div class="max-w-4xl mx-auto bg-white shadow-2xl rounded-3xl overflow-hidden">
+        <header class="bg-blue-900 text-white p-8 text-center border-b-8 border-blue-800">
+            <h1 class="text-3xl font-extrabold tracking-tight">MCMI-III Assessment System</h1>
+            <p class="text-blue-200 mt-2 font-medium">Pengembangan Kepegawaian - Sekretariat DJBC</p>
+        </header>
+
+        <main class="p-8">
+            <!-- Setup Section -->
+            <section id="setup-section" class="max-w-md mx-auto space-y-8 py-10">
+                <div class="text-center space-y-2">
+                    <h2 class="text-2xl font-bold text-slate-800">Identitas Pegawai</h2>
+                    <p class="text-slate-500 text-sm">Harap masukkan data diri Anda sebelum memulai tes.</p>
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">Nama Lengkap</label>
+                        <input type="text" id="nama" placeholder="Contoh: Rahma Oktavia" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                    </div>
+                    <div>
+                        <label class="block text-xs font-bold text-slate-400 uppercase mb-1">NIP</label>
+                        <input type="text" id="nip" placeholder="Contoh: 19900101XXXXXXXX" class="w-full border-2 border-slate-200 p-3 rounded-xl focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500 outline-none transition-all">
+                    </div>
+                </div>
+                <button onclick="startTest()" class="w-full bg-blue-700 text-white py-4 rounded-2xl font-bold text-lg hover:bg-blue-800 active:scale-[0.98] transition-all shadow-lg shadow-blue-700/30">Mulai Tes Sekarang</button>
+            </section>
+
+            <!-- Test Section -->
+            <section id="test-section" class="hidden">
+                <div class="bg-amber-50 border-l-4 border-amber-400 p-5 mb-8 rounded-r-xl">
+                    <p class="text-amber-900 text-sm leading-relaxed">
+                        <strong>Petunjuk:</strong> Bacalah pernyataan di bawah ini dengan teliti. Klik <strong>(+)</strong> jika pernyataan sesuai dengan diri Anda, atau <strong>(-)</strong> jika tidak sesuai.
+                    </p>
+                </div>
+                <div id="question-list" class="divide-y divide-slate-100"></div>
+                <div class="mt-12 sticky bottom-8 bg-white/80 backdrop-blur p-4 rounded-2xl shadow-2xl border border-slate-100">
+                    <button onclick="finishTest()" class="w-full bg-emerald-600 text-white py-4 rounded-xl font-bold text-xl hover:bg-emerald-700 active:scale-[0.98] transition-all shadow-xl shadow-emerald-600/20">Kirim & Proses Hasil</button>
+                </div>
+            </section>
+
+            <!-- Result Section -->
+            <section id="result-section" class="hidden space-y-10 py-6">
+                <div class="text-center space-y-2">
+                    <div class="inline-block p-2 bg-emerald-100 text-emerald-700 rounded-full mb-4">
+                        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    </div>
+                    <h2 class="text-3xl font-black text-slate-800">Hasil Kalkulasi Skor Mentah</h2>
+                    <p id="user-display" class="text-slate-500 font-medium"></p>
+                </div>
+
+                <div id="validity-alert" class="p-4 rounded-2xl text-center font-bold text-lg shadow-sm"></div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="result-grid">
+                    <!-- Results populated here -->
+                </div>
+
+                <div class="bg-slate-100 p-6 rounded-2xl border-2 border-dashed border-slate-300">
+                    <h3 class="font-bold text-slate-800 mb-2">Catatan Psikometri:</h3>
+                    <ul class="text-sm text-slate-600 list-disc ml-5 space-y-1">
+                        <li>Hasil ini menampilkan <strong>Skor Mentah (Raw Scores)</strong>.</li>
+                        <li>Interpretasi klinis harus didasarkan pada skor <strong>Base Rate (BR)</strong>.</li>
+                        <li>Konsultasikan dengan Psikolog untuk analisis mendalam.</li>
+                    </ul>
+                </div>
+
+                <div class="text-center">
+                    <button onclick="location.reload()" class="text-blue-600 font-bold hover:underline py-2">Ulangi Tes</button>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="scoring.js"></script>
+</body>
+</html>
